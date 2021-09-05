@@ -1,0 +1,10 @@
+{% extends 'BasicNavs/partials/header.html' %}
+{% load static %}
+
+{% block CSJSS %}
+{%endblock%}
+
+{%block MAIN%}
+    <p>This is dashboard</p>
+     <a class="nav-link" href="{%url 'CustomerLogin:customerLogout'%}">Logout</a>
+{%endblock%}

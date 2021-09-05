@@ -1,0 +1,41 @@
+{% extends 'BasicNavs/partials/header.html' %}
+{%load static%}
+
+{%block CSJSS %}
+    <link rel="stylesheet" href={% static 'Shop/css/shop.css' %}>
+{% endblock %}
+
+{% block MAIN %}
+    
+    <h1>Shop Page</h1>
+    <form action="{%url 'Shop:search_product'%}" method="POST">
+        {%csrf_token%}
+        <input type="text" name='keyword'>
+        <input type="submit">
+    </form>
+    <h6> <a href="{%url 'Shop:display_cart'%}"> Cart Total Rs. {{totalPrice}}</a></h6>
+    <div class='buttonlist'>
+        <a href="{%url 'Shop:shopIndex'%}">All Product</a>
+        <a href="/shop/view/OUT">Outdoor</a>
+        <a href="/shop/view/IN">Indoor</a>
+        <a href="/shop/view/SUC">Saculent</a>
+        <a href="/shop/view/SE">Seasonal</a>
+        <a href="/shop/view/OTH">Others</a>
+        
+    </div>
+    {%for product in products%}
+        <div class="product-catalog">
+            <h4>{{product.product_name}}</h4>
+            <img src="{{product.image}}"/>
+            <h6>Price: Rs.{{product.price}} per unit</h6>
+            <p>Category {{product.category}}</p>
+            <form action="{% url 'Shop:add_to_cart' product.id %}" method="POST">
+                {%csrf_token%}
+                <input type="number" name='quantity' placeholder="1">
+                <input type=hidden name="fromIndex" value={{fromIndex}}/>
+                <button class='btn btn-primary btn-sm' type='submit'>Add to cart</button>
+            </form>
+        </div>
+    {%endfor%}
+
+{% endblock %}

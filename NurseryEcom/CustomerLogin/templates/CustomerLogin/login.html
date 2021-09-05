@@ -1,0 +1,19 @@
+{% extends 'BasicNavs/partials/header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block CSJSS %}
+    <link rel="stylesheet" href={%static 'CustomerLogin/css/login.css' %}>
+{%endblock%}
+
+{%block MAIN%}
+    <h1 class='text-center'>Login</h1>
+    <form method = "POST" class='jumbotron'>
+        {%csrf_token%}
+    
+        {{login_form | crispy}}
+        <br>
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+{%endblock%}
